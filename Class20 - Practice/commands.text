@@ -1,0 +1,16 @@
+To run the project 
+command - npm start
+
+// To install express with nodemon
+
+command - npm install express pug nodemon
+
+// Install body parser
+npm i body-parser
+
+npm i body-parser -g // to install for all projects
+
+Install MongoDB
+
+npm i mongodb
+

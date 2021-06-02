@@ -1,0 +1,30 @@
+ul{
+    list-style: circle;
+    list-style-position: initial;
+}
+
+ol{
+    list-style: lower-roman inside;
+ 
+}
+table{
+    border-spacing: 20px;
+}
+
+input[type="text"]{
+    border: 1px solid greenyellow;
+    color: gray;
+    
+}
+
+input.error{
+    color: red;
+    border-color: red;
+    outline: none;
+}
+
+input[type="text"].error{
+    color:blue;
+    border-color: blue;
+    outline: none;
+}

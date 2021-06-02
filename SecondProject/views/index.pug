@@ -1,0 +1,17 @@
+extends ./layout.pug   
+include product-mixin
+block content
+        h1= message
+        div.container 
+        p Starting using Pug!
+        
+        //- using mixin
+        +product({title: 'PSS', description: 'Gaming Console'})
+        +product({title: 'Nintendo Switch', description: 'Another Gaming Console'}) 
+
+        
+ 
+
+        
+
+    

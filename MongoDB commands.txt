@@ -1,0 +1,48 @@
+MongoDB commands
+
+in cmd - type mongo.exe
+
+Tables are known as Collection
+Records as Documents
+
+Create Collection - db.createCollection('movies')
+to see collections - show collections
+
+how to create DBs - use DBName
+
+Add a record in collection--
+db.DBName.insertOne({name: "Spriderman", description: "Marvel")
+
+for adding multiple records --
+
+db.superheroes.insertMany([{name: "Batman", description: "Comic superhero"},{name: "Hulk", description: "Green superhero"}])
+
+To find records--
+
+ db.superheroes.find()
+
+To see the records in JSON format--
+db.superheroes.find().pretty()
+
+To find a record having name as Marvel //the name is case sensitive
+db.superheroes.find({name:"Marvel"}).pretty()
+
+To get top 3 records--
+> db.superheroes.find().pretty().limit(3)
+
+To get number of records--
+> db.superheroes.find().pretty().count()
+
+To update the record--
+db.superheroes.updateOne({name: "Spiderman"},{$set: {description: "Red Superhero"}})
+
+To get the record with greater or greter equal (gt/ gte)--
+> db.movies.find({release:{$gt: 2020}}).pretty()
+
+Sorting
+> db.movies.find().sort({release:1})
+1 = desc
+-1 = asc
+
+OR Condition--
+db.movies.find({$or:[{release:2018, release:2019}]}).sort({release:-1}).pretty()
