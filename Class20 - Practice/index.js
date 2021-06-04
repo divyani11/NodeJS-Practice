@@ -76,6 +76,37 @@ const superheroes = [
     //     res.render('superhero',{superhero:{id:1,name:'test'}});
     // });
 
+    app.get('/edit/:id',function(req,res){
+        const selectedId = req.params.id;
+
+        mongoClient.connect(dburl,function(err,client){
+            const myDatabase = client.db('comics');
+            const myCollection = myDatabase.collection('superheroes');
+            const filter = {_id: ObjectID(selectedId)};
+
+            myCollection.find(filter).toArray((err,documents)=>{
+                var selectedSuperHero = documents[0];
+                client.close();
+                res.render('edit',{superhero:selectedSuperHero});
+                });
+            });
+    });
+
+    app.get('/delete/:id',function(req,res){
+        const selectedId = req.params.id;
+
+        mongoClient.connect(dburl,function(err,client){
+            const myDatabase = client.db('comics');
+            const myCollection = myDatabase.collection('superheroes');
+            const filter = {_id: ObjectID(selectedId)};
+
+            myCollection.deleteOne(filter,function(err,result){
+                client.close();
+                res.redirect('/');
+            });
+            });
+    });
+
     app.post('/superheroes',urlEncodedParser,function(req,res){
       //  const  newId = superheroes[superheroes.length-1].id + 1;
         const newSuperHero =
@@ -84,6 +115,8 @@ const superheroes = [
             name: req.body.suprehero, // use same that is given to an element in create.pug file
             description: req.body.description
         }
+        console.log(req.body.weather);
+        console.log(req.body.color);
         mongoClient.connect(dburl,function(err,client){
             //if(err != null){
                // console.log(err.message);
@@ -98,6 +131,20 @@ const superheroes = [
         });
         //res.render('index',{superheroes: superheroes});
    });
+});
+
+app.post('/edit', urlEncodedParser,function(req,res){
+    const selectedId = req.body._id;
+    const filter = {_id: ObjectID(selectedId)};
+    const set = {$set: {name: req.body.superhero,description: req.body.description}};
+    mongoClient.connect(dburl,function(err,client){
+          const myDatabase = client.db('comics');
+          const myCollection = myDatabase.collection('superheroes');
+          myCollection.updateOne(filter,set,(err,result)=>{
+              client.close();
+              res.redirect('/edit/' + selectedId);
+      });
+    });
 });
 
         //superheroes.push(newSuperHero);

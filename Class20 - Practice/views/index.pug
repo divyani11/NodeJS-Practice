@@ -17,4 +17,6 @@ block content
             div.superhero-container 
                 h4= item.name
                 a(href="/superheroes/"+ item._id) details
+                a(href="/edit/" + item._id) Edit
+                a(href="/delete/" + item._id) Delete
             
